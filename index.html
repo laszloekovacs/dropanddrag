@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.dropzone {
+				width: 100px;
+				height: 100px;
+				border: 2px dashed royalblue;
+				padding: 10px;
+			}
+
+			div[draggable="true"] {
+				padding: 10px;
+				background-color: cornflowerblue;
+				color: aliceblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="dropzone">
+				<div id="item" draggable="true"><p>drag me around</p></div>
+			</div>
+			<div class="dropzone"></div>
+		</div>
+	</body>
+	<script>
+		let draggedElement = null;
+
+		document.addEventListener("dragstart", (e) => {
+			console.log("dragstart");
+
+			draggedElement = e.target;
+		});
+
+		document.addEventListener("dragover", (e) => {
+			e.preventDefault();
+		});
+
+		document.addEventListener("dragenter", (e) => {
+			if (e.target.className === "dropzone") {
+				console.log("valid drop zone");
+			}
+		});
+
+		document.addEventListener("drop", (e) => {
+			console.log("drop");
+
+			draggedElement.parentNode.removeChild(draggedElement);
+			e.target.appendChild(draggedElement);
+		});
+	</script>
+</html>
